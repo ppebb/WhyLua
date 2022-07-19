@@ -19,7 +19,7 @@ namespace WhyLua {
 			Directory.CreateDirectory(WhyLuaPath);
 			byte[] lua54Bytes = GetFileBytes(Path.Combine("lib", LuaLib()));
 			File.WriteAllBytes(Lua54Path, lua54Bytes);
-			NativeLibrary.SetDllImportResolver(Assembly.GetExecutingAssembly(), DllImportResolver);
+			NativeLibrary.SetDllImportResolver(typeof(KeraLua.Lua).Assembly, DllImportResolver);
 
 			Lua _interpreter = new();
 			_interpreter.LoadCLRPackage();
@@ -27,7 +27,7 @@ namespace WhyLua {
 		}
 
 		private static IntPtr DllImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? searchPath) {
-			if (libraryName == LuaLib()) {
+			if (libraryName == "lua54") {
 				return NativeLibrary.Load(Lua54Path);
 			}
 
