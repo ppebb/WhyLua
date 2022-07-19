@@ -1,0 +1,5 @@
+displayName = WhyLua Example Mod
+author = ppeb
+version = 0.1
+modReferences = WhyLua
+homepage = github.com/pollen00/WhyLuaExampleMod

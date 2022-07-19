@@ -1,3 +1,6 @@
 displayName = WhyLua
 author = ppeb
 version = 0.1
+dllReferences = NLua, KeraLua
+homepage = github.com/pollen00/WhyLua
+buildIgnore = ExampleMod/*
