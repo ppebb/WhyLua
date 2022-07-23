@@ -14,6 +14,7 @@ namespace WhyLua {
 		public static string WhyLuaPath => Path.Combine(Main.SavePath, "WhyLua");
 		public static string Lua54Path => Path.Combine(WhyLuaPath, LuaLib());
 		public static Lua _interpreter;
+		private static IntPtr NativeLib;
 
 		public override void Load() {
 			Directory.CreateDirectory(WhyLuaPath);
@@ -25,10 +26,20 @@ namespace WhyLua {
 			_interpreter.LoadCLRPackage();
 			_interpreter.State.Encoding = Encoding.UTF8;
 		}
+		
+		public override void Unload()
+		{
+			NativeLibrary.Free(NativeLib);
+		}
 
 		private static IntPtr DllImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? searchPath) {
 			if (libraryName == "lua54") {
-				return NativeLibrary.Load(Lua54Path);
+				if(NativeLib != IntPtr.Zero)
+				{
+					return NativeLib;
+				}
+				NativeLib = NativeLibrary.Load(Lua54Path);
+				return NativeLib;
 			}
 
 			return IntPtr.Zero;
