@@ -27,17 +27,14 @@ namespace WhyLua {
 			_interpreter.State.Encoding = Encoding.UTF8;
 		}
 		
-		public override void Unload()
-		{
+		public override void Unload() {
 			NativeLibrary.Free(NativeLib);
 		}
 
 		private static IntPtr DllImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? searchPath) {
 			if (libraryName == "lua54") {
 				if(NativeLib != IntPtr.Zero)
-				{
 					return NativeLib;
-				}
 				NativeLib = NativeLibrary.Load(Lua54Path);
 				return NativeLib;
 			}
