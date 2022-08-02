@@ -12,14 +12,9 @@ permissions:
 jobs:
   editorconfig:
     runs-on: ubuntu-latest
+    container:
+      image: mstruebing/editorconfig-checker
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-    - name: EditorConfig
-      uses: github/super-linter@v4
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        DEFAULT_BRANCH: main
-        VALIDATE_ALL_CODEBASE: false
+    - uses: actions/checkout@v3
+    - name: Check editorconfig
+      run: ec
