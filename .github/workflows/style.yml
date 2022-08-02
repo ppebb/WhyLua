@@ -1,0 +1,20 @@
+name: Coding Style
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  editorconfig:
+    runs-on: ubuntu-latest
+    container:
+      image: mstruebing/editorconfig-checker
+    steps:
+    - uses: actions/checkout@v3
+    - name: Check editorconfig
+      run: ec
